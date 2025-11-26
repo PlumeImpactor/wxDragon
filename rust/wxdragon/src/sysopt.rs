@@ -31,13 +31,13 @@ impl SystemOptions {
             let mut buffer = vec![0u8; len as usize + 1];
             let actual_len = crate::ffi::wxd_SystemOptions_GetOption_String(
                 name.as_ptr(),
-                buffer.as_mut_ptr() as *mut i8,
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 buffer.len() as ::std::os::raw::c_int,
             );
             if actual_len <= 0 {
                 return Some(String::new());
             }
-            let cstr = std::ffi::CStr::from_ptr(buffer.as_ptr() as *const i8);
+            let cstr = std::ffi::CStr::from_ptr(buffer.as_ptr() as *const std::os::raw::c_char);
             Some(cstr.to_string_lossy().into_owned())
         }
     }

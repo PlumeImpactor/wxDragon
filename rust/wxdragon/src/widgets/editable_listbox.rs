@@ -193,12 +193,15 @@ impl EditableListBox {
             .map(|s| CString::new(*s).unwrap_or_default())
             .collect();
 
-        let mut c_ptrs: Vec<*const i8> = c_strings.iter().map(|s| s.as_ptr()).collect();
+        let mut c_ptrs: Vec<*const std::os::raw::c_char> = c_strings
+            .iter()
+            .map(|s| s.as_ptr() as *const std::os::raw::c_char)
+            .collect();
 
         unsafe {
             ffi::wxd_EditableListBox_SetStrings(
                 self.window.handle_ptr(),
-                c_ptrs.as_mut_ptr(),
+                c_ptrs.as_mut_ptr() as *mut *const std::os::raw::c_char,
                 c_strings.len() as i32,
             )
         }

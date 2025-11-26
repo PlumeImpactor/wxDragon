@@ -423,7 +423,7 @@ impl ListCtrl {
                 self.as_list_ctrl_ptr(),
                 index as c_longlong,
                 col,
-                buffer.as_mut_ptr() as *mut i8,
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 needed_len as i32,
             );
             if actual_len <= 0 {

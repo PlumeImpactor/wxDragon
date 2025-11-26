@@ -503,7 +503,7 @@ extern "C" fn file_on_drop_files_trampoline(
             let len = ffi::wxd_ArrayString_GetString(
                 filenames_ptr as *mut _,
                 i,
-                buffer.as_mut_ptr() as *mut i8,
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 buffer.len() as i32,
             );
 

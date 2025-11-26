@@ -110,13 +110,13 @@ impl TextDataObject {
         let success = unsafe {
             ffi::wxd_TextDataObject_GetText(
                 self.data_object.as_ptr() as *mut ffi::wxd_TextDataObject_t,
-                buffer.as_mut_ptr(),
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 buffer.len() as i32,
             )
         };
 
         if success > 0 {
-            let c_str = unsafe { std::ffi::CStr::from_ptr(buffer.as_ptr()) };
+            let c_str = unsafe { std::ffi::CStr::from_ptr(buffer.as_ptr() as *const std::os::raw::c_char) };
             c_str.to_string_lossy().into_owned()
         } else {
             String::new()
@@ -217,7 +217,7 @@ impl FileDataObject {
         };
 
         if success > 0 {
-            let c_str = unsafe { std::ffi::CStr::from_ptr(buffer.as_ptr()) };
+            let c_str = unsafe { std::ffi::CStr::from_ptr(buffer.as_ptr() as *const std::os::raw::c_char) };
             c_str.to_string_lossy().into_owned()
         } else {
             String::new()

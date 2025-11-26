@@ -187,7 +187,7 @@ impl Clipboard {
         };
 
         if success {
-            let c_str = unsafe { std::ffi::CStr::from_ptr(buffer.as_ptr()) };
+            let c_str = unsafe { std::ffi::CStr::from_ptr(buffer.as_ptr() as *const std::os::raw::c_char) };
             Some(c_str.to_string_lossy().into_owned())
         } else {
             None

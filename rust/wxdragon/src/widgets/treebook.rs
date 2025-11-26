@@ -221,7 +221,7 @@ impl Treebook {
             let copied_len_with_null = ffi::wxd_Treebook_GetPageText(
                 self.as_ptr(),
                 n,
-                buffer.as_mut_ptr() as *mut i8,
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 buffer_size as i32,
             );
 

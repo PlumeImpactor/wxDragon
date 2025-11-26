@@ -165,13 +165,13 @@ impl Font {
         let len = unsafe {
             ffi::wxd_Font_GetFaceName(
                 self.ptr,
-                buffer.as_mut_ptr() as *mut i8,
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 buffer.len() as i32,
             )
         };
         if len > 0 {
             buffer.resize((len + 1) as usize, 0);
-            let c_str = unsafe { CStr::from_ptr(buffer.as_ptr() as *const i8) };
+            let c_str = unsafe { CStr::from_ptr(buffer.as_ptr() as *const std::os::raw::c_char) };
             c_str.to_string_lossy().into_owned()
         } else {
             String::new()

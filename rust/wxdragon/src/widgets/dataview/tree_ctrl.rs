@@ -337,7 +337,7 @@ impl DataViewTreeCtrl {
                 let c_str_borrowed = std::ffi::CStr::from_ptr(c_str);
                 let rust_string = c_str_borrowed.to_string_lossy().into_owned();
                 // Now free the C string using the proper FFI function
-                ffi::wxd_free_string(c_str as *mut i8);
+                ffi::wxd_free_string(c_str as *mut std::os::raw::c_char);
                 rust_string
             }
         }
