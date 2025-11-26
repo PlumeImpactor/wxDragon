@@ -211,7 +211,7 @@ impl FileDataObject {
             ffi::wxd_FileDataObject_GetFile(
                 self.data_object.as_ptr() as *mut ffi::wxd_FileDataObject_t,
                 index as i32,
-                buffer.as_mut_ptr(),
+                buffer.as_mut_ptr() as *mut std::os::raw::c_char,
                 buffer.len() as i32,
             )
         };
